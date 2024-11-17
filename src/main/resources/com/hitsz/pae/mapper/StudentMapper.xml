@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hitsz.pae.mapper.StudentMapper">
+
+    <select id="login" resultType="com.hitsz.pae.pojo.Student">
+        select * from examandpratice.student
+        where password = #{password}
+        and phone = #{phone}
+    </select>
+    <select id="selectProfession" resultType="java.lang.Integer">
+        select profession_id from examandpratice.stu_profession
+        where stu_id = #{stuId}
+    </select>
+</mapper>

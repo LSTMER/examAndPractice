@@ -1,0 +1,48 @@
+## 定义对象、map集合
+#user:
+#  name: Tom
+#  age: 3
+#  gender: 1
+#
+## 定义数组，list，set集合
+#hobbies:
+#  - java
+#  - go
+#  - c++
+## 配置项的值若是以0开头，需要用‘’包围起来
+#password: 012
+#password_: '0'12
+
+spring:
+  # 数据库相关配置信息 driver-class-name在文件中自动调用了：数据库驱动类
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/examandpratice
+    username: root
+    password: 191920lzH
+  # 将文件单个大小限制为10MB，单次的请求大小小于100MB
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+# log-impl: 设置 MyBatis 的日志实现。org.apache.ibatis.logging.stdout.StdOutImpl 表示将日志输出到标准输出（控制台）。其他可选的日志实现包括：
+# org.apache.ibatis.logging.slf4j.Slf4jImpl：使用 SLF4J
+# org.apache.ibatis.logging.log4j.Log4jImpl：使用 Log4j
+# org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl：使用 Jakarta Commons Logging
+# map-underscore-to-camel-case: 设置是否自动将数据库中的下划线命名转换为驼峰命名。例如，数据库中的 user_name 字段将自动映射到 Java 对象中的 userName 属性
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# 设置日志级别为info，还可以设置为debug，warn，error，关闭日志将级别设置为off即可
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: info
+
+# 阿里云
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: java-web-simon
