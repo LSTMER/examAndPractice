@@ -5,12 +5,12 @@
 <mapper namespace="com.hitsz.pae.mapper.StudentMapper">
 
     <select id="login" resultType="com.hitsz.pae.pojo.Student">
-        select * from examandpratice.student
+        select * from student
         where password = #{password}
         and phone = #{phone}
     </select>
     <select id="selectProfession" resultType="java.lang.Integer">
-        select profession_id from examandpratice.stu_profession
+        select profession_id from stu_profession
         where stu_id = #{stuId}
     </select>
 </mapper>

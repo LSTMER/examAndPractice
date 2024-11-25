@@ -20,5 +20,4 @@ public class LoginInfo {
     private String phone;
     private List<Integer> profession;
     private String token;//令牌
-
 }
