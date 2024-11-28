@@ -11,13 +11,13 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface SessionMapper {
 
-    @Select("SELECT * FROM session WHERE stu_id = #{sutId}")
-    Session findByStuId(Integer stuId);
+    @Select("SELECT * FROM session WHERE phone = #{phone}")
+    Session findByPhone(String phone);
 
-    @Insert("INSERT INTO session (id,stu_id, token) VALUES (0,#{stuId}, #{token})")
+    @Insert("INSERT INTO session (phone, token) VALUES (#{phone}, #{token})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Session session);
 
-    @Delete("DELETE FROM session WHERE stu_id = #{stuId}")
-    void deleteByUserId(Integer stuId);
+    @Delete("DELETE FROM session WHERE phone = #{phone}")
+    void deleteByUserId(String phone);
 }

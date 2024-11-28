@@ -34,21 +34,20 @@ public class ExamController {
 
     /*在测试页面，一次返回10或者20道题目，只需要一次的提交
     * 这里使用数组，将题一次性提交给前端*/
-    @PostMapping
+    @PostMapping("/send")
     public Result getQuestionInList(@RequestBody GetExamInfo getExamInfo) {
         log.info("getQuestionInList from "+getExamInfo);
 
-        Question[] questions = new Question[Constant.NUM_OF_EXAM_QUESTION_NUM_10];
+        Question[] questions = examService.getExamQuestions(getExamInfo);
 
-//        Question question = examService.getQuestionByExamIndex(getExamInfo);
-        return Result.success();
+        return Result.success(questions);
     }
 
     /*在练习接口收到学生作答，插入作答记录*/
     @PostMapping("/comfirm")
     public Result confirmQuestion(@RequestBody Info_exam infoExam) {
         log.info("confirmQuestion from "+infoExam);
-//        examService.saveExamRecord(infoExam);
+        examService.saveExamRecord(infoExam);
         return Result.success();
     }
 }

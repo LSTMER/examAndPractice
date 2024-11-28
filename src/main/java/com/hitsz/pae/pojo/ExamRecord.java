@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*该类用于记录学员考试记录信息*/
+/*该类用于展示学员考试记录信息*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -30,8 +30,8 @@ public class TokenInterceptor implements HandlerInterceptor {
 //        获取请求的url
         String url = request.getRequestURL().toString();
 
-        if(url.contains("/login")){
-            /*如果是登录请求，将查看当前数据库中是否有已经登录的信息，若有，则删除登录信息，并将当前新的信息录入
+        if(url.contains("/login")||url.contains("/adminLogin")){
+            /*如果是登录（包括学员登录，管理员登录）请求，将查看当前数据库中是否有已经登录的信息，若有，则删除登录信息，并将当前新的信息录入
             * 若无，则新增加一条token放入数据库中*/
             log.info("------------>当前是登录请求，直接放行");
             return true;
@@ -50,9 +50,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         Claims claims = null;
         try {
             claims = JwtUtils.parseJWT(jwt);
-            Integer stuId = (Integer) claims.get("id");
+            String phone = (String) claims.get("phone");
             /*查询当前token是否被更改，即在别处被登录，若是，则返回错误，前端跳转到登录界面*/
-            Session session = sessionMapper.findByStuId(stuId);
+            Session session = sessionMapper.findByPhone(phone);
             if(!session.getToken().equals(jwt)){
                 log.info("当前已在别处登录");
                 response.setStatus(401);

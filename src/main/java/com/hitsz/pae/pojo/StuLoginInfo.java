@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginInfo {
+public class StuLoginInfo {
     private Integer id;
     private String name;//姓名
     private String phone;

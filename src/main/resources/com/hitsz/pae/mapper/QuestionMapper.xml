@@ -3,14 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hitsz.pae.mapper.QuestionMapper">
+
+
     <select id="selectByListInfo" resultType="java.lang.Integer">
         select question_id from list_to_question
         where question_list_id = #{questionListIndex} and
               question_index = #{questionIndex}
     </select>
-    <select id="selectByExamInfo" resultType="java.lang.Integer">
-        select question_id from exam_question
-        where exam_id = #{examId} and
-              question_index= #{questionIndex}
+
+    <select id="selectRandomProfession" resultType="com.hitsz.pae.pojo.Question">
+        select * from(
+            select * from question
+                     where profession = #{profession}
+                     )as profession_questions
+        order by rand()
+        limit 1;
     </select>
 </mapper>

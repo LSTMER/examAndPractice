@@ -8,13 +8,14 @@ package com.hitsz.pae.pojo;/*
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*记录了学员某一次测试的答题情况*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Info_exam {
+    private Integer id;
     private Integer userId;//作答人id
-    private Integer ExamIndex;//测试号
-    private String sAnswer;//学员的作答
-    private Integer profession;//测试的题型
+    private boolean status;
+    private Integer profession;
+    private Integer correctNum;
 }

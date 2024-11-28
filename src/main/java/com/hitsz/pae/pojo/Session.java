@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Session {
     private Integer id;//物理IP
-    private Integer stuId;//学员id
+    private String phone;//学员id
     private String token;
 
-    public Session(Integer id, String jwt) {
-        this.stuId = id;
+    public Session(String phone, String jwt) {
+        this.phone = phone;
         this.token = jwt;
     }
 }

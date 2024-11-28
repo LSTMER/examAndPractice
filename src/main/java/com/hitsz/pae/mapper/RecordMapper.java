@@ -5,6 +5,7 @@ package com.hitsz.pae.mapper;/*
  *@version:1.0
  */
 
+import com.hitsz.pae.pojo.Info_exam;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,9 +23,8 @@ public interface RecordMapper {
     List<Integer> selectListByProfession(@Param("id") Integer id, @Param("profession") Integer profession);
 
     /*根据id和question的id，插入一条学员答案*/
-    @Insert("insert into info_pratice (stu_id, question_id, correct, s_answer) VALUES (#{stuId} ,#{questionId} ,#{correct}, #{sAnswer} )")
+    @Insert("insert into info_pratice (stu_id, question_id, correct, s_answer) VALUES (#{userId} ,#{questionId} ,#{correct}, #{sAnswer} )")
     void insertPracticeRecord(Integer questionId, Integer stuId, String sAnswer, boolean correct);
 
-    @Select("select * from info_exams where stu_id = #{id} and profession = #{profession}")
-    List<Integer> selectExamByProfession(@Param("id") Integer id, @Param("profession") Integer profession);
+    void saveExamRecord(Info_exam infoExam);
 }

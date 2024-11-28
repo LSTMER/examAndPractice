@@ -9,8 +9,6 @@ import com.hitsz.pae.pojo.*;
 
 public interface ExamService {
     ExamRecord[] getExamSurface(Integer id);
-//    Question getQuestionByExamIndex(GetExamInfo examInfo);
-//    void saveExamRecord(Info_exam infoE);
-
     Question[] getExamQuestions(GetExamInfo examInfo);
+    void saveExamRecord(Info_exam infoExam);
 }

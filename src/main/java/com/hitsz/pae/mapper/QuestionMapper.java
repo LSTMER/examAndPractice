@@ -5,8 +5,8 @@ package com.hitsz.pae.mapper;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.pojo.GetExamInfo;
 import com.hitsz.pae.pojo.GetListInfo;
+import com.hitsz.pae.pojo.Info_exam;
 import com.hitsz.pae.pojo.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -24,13 +24,18 @@ public interface QuestionMapper {
     @Select("select * from examandpratice.question where id = #{id}")
     Question selectById(Integer id);
 
+    /*根据题目id，查询当前question的正确答案*/
     @Select("select c_answer from question where id = #{id}")
     String selectAnswerByQuestionId(Integer id);
 
-    @Select("select count(*) from exam where profession = #{profession}")
-    int countExamByProfession(Integer profession);
+    /*可以随机返回一条对应profession的题目*/
+    Question selectRandomProfession(Integer profession);
 
-    Integer selectByExamInfo(GetExamInfo getExamInfo);
+    /*需求更新：
+    * 在exam中需要随机返回10或者20道题目，这里就可以直接调用上面的方法
+    * 不需要再记录exam的题目id了
+    * 只需要在保存的时候，记录下当前学员，当前学科，的分数，是否及格就可以了*/
+
     /*查询测试记录info_exam：返回
     * 通过学员的id和学员的profession，查询对应的记录
     * 1：查询总答题数
