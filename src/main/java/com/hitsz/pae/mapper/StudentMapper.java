@@ -5,9 +5,10 @@ package com.hitsz.pae.mapper;/*
  *@version:1.0
  */
 
+import com.hitsz.pae.pojo.GetStuInfo;
+import com.hitsz.pae.pojo.StuInfo;
 import com.hitsz.pae.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface StudentMapper {
     Student login(Student student);
 
     List<Integer> selectProfession(Integer stuId);
+
+    List<StuInfo> selectStuInfo(GetStuInfo getStuInfo);
 }

@@ -27,4 +27,6 @@ public interface RecordMapper {
     void insertPracticeRecord(Integer questionId, Integer stuId, String sAnswer, boolean correct);
 
     void saveExamRecord(Info_exam infoExam);
+
+    List<Integer> selectExamScore(Integer id, Integer profession);
 }

@@ -55,11 +55,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Question[] getExamQuestions(GetExamInfo examInfo) {
         Question[] questions;
-        if(examInfo.getProfession()==2){
-            questions = new Question[Constant.NUM_OF_EXAM_QUESTION_NUM_10];
-        }else{
-            questions = new Question[Constant.NUM_OF_EXAM_QUESTION_NUM_20];
-        }
+        questions = new Question[Constant.professionNumber(examInfo.getProfession())];
         for(int i = 0; i < questions.length; i++){
             questions[i] = questionMapper.selectRandomProfession(examInfo.getProfession());
         }
@@ -69,16 +65,8 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public void saveExamRecord(Info_exam infoExam) {
         int correct = infoExam.getCorrectNum();
-        int pass = 0;
-        if(infoExam.getProfession()==2){
-            pass = 6;
-        }else{
-            pass = 12;
-        }
-        boolean status = false;
-        if(correct >= pass){
-            status = true;
-        }
+        int pass = Constant.professionGood(infoExam.getProfession());
+        boolean status = correct >= pass;
         infoExam.setStatus(status);
         recordMapper.saveExamRecord(infoExam);
     }

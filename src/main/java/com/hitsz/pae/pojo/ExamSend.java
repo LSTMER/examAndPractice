@@ -1,6 +1,6 @@
 package com.hitsz.pae.pojo;/*
  *@Author:Simon
- *@Date: 2024-11-19 - 2024 11 19 21:02
+ *@Date: 2024-12-03 - 2024 12 03 15:57
  *@Description:praticeAndExam
  *@version:1.0
  */
@@ -8,12 +8,11 @@ package com.hitsz.pae.pojo;/*
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/*根据题单信息和题单号，查询题目的类*/
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetListInfo {
-    private Integer questionListIndex;
-    private Integer questionIndex;
-    private Integer profession;
+public class ExamSend {
+    private Question[] exam_questionlist;
+    private Integer questionNum;
 }

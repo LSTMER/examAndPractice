@@ -12,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @Slf4j
 @RequestMapping("/exam")
@@ -37,10 +35,10 @@ public class ExamController {
     @PostMapping("/send")
     public Result getQuestionInList(@RequestBody GetExamInfo getExamInfo) {
         log.info("getQuestionInList from "+getExamInfo);
-
-        Question[] questions = examService.getExamQuestions(getExamInfo);
-
-        return Result.success(questions);
+        ExamSend examSend = new ExamSend();
+        examSend.setExam_questionlist(examService.getExamQuestions(getExamInfo));
+        examSend.setQuestionNum(Constant.professionNumber(getExamInfo.getProfession()));
+        return Result.success(examSend);
     }
 
     /*在练习接口收到学生作答，插入作答记录*/

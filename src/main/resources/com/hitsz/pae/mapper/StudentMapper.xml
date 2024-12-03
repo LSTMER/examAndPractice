@@ -10,7 +10,24 @@
         and phone = #{phone}
     </select>
     <select id="selectProfession" resultType="java.lang.Integer">
-        select profession_id from stu_profession
+        select profession from stu_profession
         where stu_id = #{stuId}
+    </select>
+    <select id="selectStuInfo" resultType="com.hitsz.pae.pojo.StuInfo">
+        select s.id, s.name, t.date , p.profession from student s, final_exam_time_table t, stu_profession p
+        where
+            p.stu_id = s.id and
+            s.id = t.stu_id
+            <trim prefix="and" prefixOverrides="and">
+                <if test="name != null and name != ''">
+                    s.name = #{name}
+                </if>
+                <if test="profession!=null">
+                    and p.profession = #{profession}
+                </if>
+                <if test="date != null">
+                    and t.date > #{date}
+                </if>
+            </trim>
     </select>
 </mapper>

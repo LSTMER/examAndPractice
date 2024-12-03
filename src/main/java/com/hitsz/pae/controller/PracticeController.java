@@ -40,7 +40,7 @@ public class PracticeController {
     }
 
     /*在练习接口收到学生作答，插入作答记录*/
-    @PostMapping("/comfirm")
+    @PostMapping("/confirm")
     public Result confirmQuestion(@RequestBody Info_practice info_practice) {
         log.info("confirmQuestion from "+info_practice);
         exerciseService.savePracticeRecord(info_practice);
