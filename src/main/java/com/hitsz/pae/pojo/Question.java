@@ -20,5 +20,6 @@ public class Question {
     private String questionScript;
     private String option;
 
-    private boolean flag;
+    private boolean flagContain;
+    private boolean flagMul;
 }

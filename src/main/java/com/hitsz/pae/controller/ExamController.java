@@ -38,11 +38,12 @@ public class ExamController {
         ExamSend examSend = new ExamSend();
         examSend.setExam_questionlist(examService.getExamQuestions(getExamInfo));
         examSend.setQuestionNum(Constant.professionNumber(getExamInfo.getProfession()));
+        System.out.println(examSend);
         return Result.success(examSend);
     }
 
     /*在练习接口收到学生作答，插入作答记录*/
-    @PostMapping("/comfirm")
+    @PostMapping("/confirm")
     public Result confirmQuestion(@RequestBody Info_exam infoExam) {
         log.info("confirmQuestion from "+infoExam);
         examService.saveExamRecord(infoExam);

@@ -13,6 +13,10 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface QuestionMapper {
+
+    @Select("select count(*) from question where profession = #{profession}")
+    int countQuestionByProfession(Integer profession);
+
     /*根据工种查询当前题单数量*/
     @Select("select count(*) from examandpratice.question_list where profession = #{profession}")
     int countListByProfession(Integer profession);
@@ -29,7 +33,7 @@ public interface QuestionMapper {
     String selectAnswerByQuestionId(Integer id);
 
     /*可以随机返回一条对应profession的题目*/
-    Question selectRandomProfession(Integer profession);
+    Question[] selectRandomProfession(Integer profession, Integer number);
 
     /*需求更新：
     * 在exam中需要随机返回10或者20道题目，这里就可以直接调用上面的方法

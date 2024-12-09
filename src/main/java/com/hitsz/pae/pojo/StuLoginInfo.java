@@ -18,6 +18,6 @@ public class StuLoginInfo {
     private Integer id;
     private String name;//姓名
     private String phone;
-    private List<Integer> profession;
+    private Integer[] profession;
     private String token;//令牌
 }

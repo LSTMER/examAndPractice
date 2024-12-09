@@ -5,8 +5,8 @@ package com.hitsz.pae.sevice.Impl;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.Constant;
 import com.hitsz.pae.mapper.AdministratorMapper;
+import com.hitsz.pae.mapper.QuestionMapper;
 import com.hitsz.pae.mapper.SessionMapper;
 import com.hitsz.pae.mapper.StudentMapper;
 import com.hitsz.pae.pojo.Administrator;
@@ -36,6 +36,8 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     SessionMapper sessionMapper;
 
+    @Autowired
+    QuestionMapper questionMapper;
     @Override
     @Transactional
     public StuLoginInfo studentLogin(Student stu) {
@@ -59,7 +61,13 @@ public class LoginServiceImpl implements LoginService {
             /*更新token，在表中插入，若不存在，同样插入*/
             session = new Session(student.getPhone(),jwt);
             sessionMapper.insert(session);
-            return new StuLoginInfo(student.getId(),student.getName(),student.getPhone(),student.getProfession(),jwt);
+
+            Integer[] temp = new Integer[4];
+            for(Integer profession:student.getProfession()){
+                temp[profession] = questionMapper.countQuestionByProfession(profession);
+            }
+
+            return new StuLoginInfo(student.getId(),student.getName(),student.getPhone(),temp,jwt);
         }
         return null;
     }

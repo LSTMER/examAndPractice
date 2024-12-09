@@ -27,6 +27,12 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("hello");
+        //判断是否需要拦截
+        //拦截器取到请求先进行判断，如果是OPTIONS请求，则放行
+        if("OPTIONS".equals(request.getMethod().toUpperCase())) {
+            System.out.println("Method:OPTIONS");
+            return true;
+        }
 //        获取请求的url
         String url = request.getRequestURL().toString();
 
@@ -37,7 +43,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         }
         /*为了接下来的不需要继续，返回return*/
-        String jwt = request.getHeader("token");
+        String jwt = request.getHeader("Token");
         //判断令牌是否存在，若不存在，返回401
         if(StringUtils.isEmpty(jwt)){
             log.info("------------>令牌不存在，响应401");

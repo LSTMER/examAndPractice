@@ -17,7 +17,7 @@ spring:
   # 数据库相关配置信息 driver-class-name在文件中自动调用了：数据库驱动类
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/examandpratice
+    url: jdbc:mysql://localhost:3306/examandpratice?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 191920lzH
   # 将文件单个大小限制为10MB，单次的请求大小小于100MB

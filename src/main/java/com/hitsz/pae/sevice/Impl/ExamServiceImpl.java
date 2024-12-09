@@ -55,10 +55,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Question[] getExamQuestions(GetExamInfo examInfo) {
         Question[] questions;
-        questions = new Question[Constant.professionNumber(examInfo.getProfession())];
-        for(int i = 0; i < questions.length; i++){
-            questions[i] = questionMapper.selectRandomProfession(examInfo.getProfession());
-        }
+        questions = questionMapper.selectRandomProfession(examInfo.getProfession(),Constant.professionNumber(examInfo.getProfession()));
         return questions;
     }
 
