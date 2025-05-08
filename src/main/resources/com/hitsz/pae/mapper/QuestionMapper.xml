@@ -6,9 +6,11 @@
 
 
     <select id="selectByListInfo" resultType="java.lang.Integer">
-        select question_id from list_to_question
-        where question_list_id = #{questionList_index} and
-              question_index = #{questionindex}
+        select question_id from list_to_question ltq, question_list ql
+        where ltq.question_list_id = ql.id and
+              ql.question_list_index = #{questionList_index} and
+              ltq.question_index = #{questionindex} and
+              ql.profession = #{profession}
     </select>
 
     <select id="selectRandomProfession" resultType="com.hitsz.pae.pojo.Question">
@@ -18,5 +20,19 @@
                      )as profession_questions
         order by rand()
         limit #{number};
+    </select>
+    <select id="selectById" resultType="com.hitsz.pae.pojo.Question">
+        select id, profession, c_answer, question_picture, question_script, option_al, flag_mul, flag_contain from question
+        where question.id = #{id}
+    </select>
+    <select id="selectQuestionListByIndexAndProfession" resultType="java.lang.Integer">
+        select id from question_list
+        where question_list_index = #{index}
+        and profession = #{profession}
+    </select>
+    <select id="getQuestionSet">
+        select * from question where id in <foreach item="item" collection="set" open="(" separator="," close=")">
+        #{item}
+        </foreach>
     </select>
 </mapper>

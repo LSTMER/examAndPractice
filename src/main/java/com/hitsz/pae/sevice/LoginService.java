@@ -5,11 +5,12 @@ package com.hitsz.pae.sevice;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.pojo.Administrator;
-import com.hitsz.pae.pojo.StuLoginInfo;
-import com.hitsz.pae.pojo.Student;
+import com.hitsz.pae.pojo.admin.Administrator;
+import com.hitsz.pae.pojo.admin.AdministratorInfo;
+import com.hitsz.pae.pojo.stu.StuLoginInfo;
+import com.hitsz.pae.pojo.stu.Student;
 
 public interface LoginService {
-    StuLoginInfo studentLogin(Student stu);
-    String administratorLogin(Administrator admin);
+    StuLoginInfo studentLogin(Student stu, Integer flag);
+    AdministratorInfo administratorLogin(Administrator admin);
 }

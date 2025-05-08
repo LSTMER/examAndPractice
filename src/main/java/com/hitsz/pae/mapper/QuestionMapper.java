@@ -5,15 +5,19 @@ package com.hitsz.pae.mapper;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.pojo.GetListInfo;
-import com.hitsz.pae.pojo.Info_exam;
+import com.hitsz.pae.operationlog.aspect.ApiOperationLog;
+import com.hitsz.pae.pojo.ListToQuestion;
 import com.hitsz.pae.pojo.Question;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.Set;
 
 @Mapper
 public interface QuestionMapper {
 
+    @ApiOperationLog(description = "根据profession查询题目数量")
     @Select("select count(*) from question where profession = #{profession}")
     int countQuestionByProfession(Integer profession);
 
@@ -22,10 +26,9 @@ public interface QuestionMapper {
     int countListByProfession(Integer profession);
 
     /*根据题单号，工种号，题单对应的题目号，查询到一个题目id*/
-    Integer selectByListInfo(GetListInfo getListInfo);
+    Integer selectByListInfo(ListToQuestion listToQuestion);
 
     /*根据题目的id，查询当前question*/
-    @Select("select * from examandpratice.question where id = #{id}")
     Question selectById(Integer id);
 
     /*根据题目id，查询当前question的正确答案*/
@@ -49,4 +52,12 @@ public interface QuestionMapper {
 
     @Select("select count(*) from info_exams where stu_id = #{id} and profession = #{profession} and status = true")
     int countExamByProfessionAndStatus(Integer id, Integer profession);
+
+    int selectQuestionListByIndexAndProfession(Integer index, Integer profession);
+
+    @Select("select question_number from question_list where id = #{id}")
+    int selectQuestionListNum(Integer id);
+
+    Question[] getQuestionSet(@Param("set") Set<Integer> set);
+
 }

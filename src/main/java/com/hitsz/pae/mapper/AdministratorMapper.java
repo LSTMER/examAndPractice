@@ -5,13 +5,10 @@ package com.hitsz.pae.mapper;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.pojo.Administrator;
+import com.hitsz.pae.pojo.admin.Administrator;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface AdministratorMapper {
-
-    @Select("select * from administrator where phone = #{phone} and password = #{password}")
-    public Administrator checkAdministrator(Administrator administrator);
+    Administrator checkAdministrator(Administrator administrator);
 }

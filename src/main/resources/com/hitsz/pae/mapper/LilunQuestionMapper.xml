@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hitsz.pae.mapper.LilunQuestionMapper">
+
+
+    <select id="selectByListInfo" resultType="java.lang.Integer">
+        select * from lilun_list_to_question ltq, lilun_question_list ql
+        where ltq.question_list_id = ql.id and
+            ql.question_list_index = #{questionList_index} and
+            ltq.question_index = #{questionindex} and
+            ql.profession = #{profession}
+    </select>
+
+    <select id="selectRandomProfession" resultType="com.hitsz.pae.pojo.Question">
+        select * from(
+                         select * from lilun_question
+                         where profession = #{profession}
+                     )as profession_questions
+        order by rand()
+        limit #{number};
+    </select>
+    <select id="selectById" resultType="com.hitsz.pae.pojo.Question">
+        select id, profession, c_answer, question_picture, question_script, option_al, flag_mul, flag_contain
+        from lilun_question
+        where lilun_question.id = #{id}
+    </select>
+    <select id="findQuestionListId" resultType="java.lang.Boolean">
+        select status from lilun_info_question_list where quesion_list_index = #{id}
+    </select>
+    <select id="getQuestionSet">
+        select * from lilun_question where id in
+        <foreach collection="set" close=")" open="(" item="item">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

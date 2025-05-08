@@ -1,12 +1,14 @@
 package com.hitsz.pae.util;
 
+import com.hitsz.pae.operationlog.aspect.ApiOperationLog;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Map;
-
+// @Component
 public class JwtUtils {
 
     private static String signKey = "SVRIRUlNQQ==";
@@ -16,6 +18,7 @@ public class JwtUtils {
      * 生成JWT令牌
      * @return
      */
+    // @ApiOperationLog(description = "生成JWT令牌")
     public static String generateJwt(Map<String,Object> claims){
         String jwt = Jwts.builder()
                 .addClaims(claims)

@@ -18,7 +18,7 @@ public class Question {
     private String cAnswer;
     private String questionPicture;
     private String questionScript;
-    private String option;
+    private String optionAl;
 
     private boolean flagContain;
     private boolean flagMul;

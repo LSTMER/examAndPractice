@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hitsz.pae.mapper.AdministratorMapper">
+    <insert id="insertStuInfo" keyProperty="true">
+        insert into student (phone, create_time, update_time, password)
+        values (#{phone}, now(), now(), '123456')
+    </insert>
+    <insert id="insertFinalTime">
+        insert into final_exam_time_table (stu_id, date)
+        values (#{id}, #{date})
+    </insert>
+    <select id="checkAdministrator" resultType="com.hitsz.pae.pojo.admin.Administrator">
+        select * from administrator where phone = #{phone} and password = #{password}
+    </select>
+</mapper>

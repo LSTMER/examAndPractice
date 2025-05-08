@@ -6,14 +6,13 @@ package com.hitsz.pae.interceptor;/*
  */
 
 import com.aliyuncs.utils.StringUtils;
-import com.hitsz.pae.mapper.SessionMapper;
-import com.hitsz.pae.pojo.Session;
 import com.hitsz.pae.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -21,12 +20,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
+
     @Autowired
-    SessionMapper sessionMapper;
+    RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("hello");
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //判断是否需要拦截
         //拦截器取到请求先进行判断，如果是OPTIONS请求，则放行
         if("OPTIONS".equals(request.getMethod().toUpperCase())) {
@@ -53,19 +52,21 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         /*若数据库中不存在该令牌，则提出账号已在别处登录*/
 
-        Claims claims = null;
+        Claims claims;
         try {
             claims = JwtUtils.parseJWT(jwt);
-            String phone = (String) claims.get("phone");
-            /*查询当前token是否被更改，即在别处被登录，若是，则返回错误，前端跳转到登录界面*/
-            Session session = sessionMapper.findByPhone(phone);
-            if(!session.getToken().equals(jwt)){
+            String id = (String) claims.get("id");
+            /*查询当前token是否被更改，即在别处被登录，若是，则返回错误，前端跳转到登录界面
+            * 两者jwt第二段的过期时间会有所不同*/
+            String JWT = (String) redisTemplate.opsForValue().get(id);
+            assert JWT != null;
+            if(!JWT.equals(jwt)){
                 log.info("当前已在别处登录");
                 response.setStatus(401);
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             log.info("当前令牌识别失败，返回401");
             response.setStatus(401);
             return false;

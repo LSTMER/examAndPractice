@@ -6,9 +6,12 @@ package com.hitsz.pae.sevice;/*
  */
 
 import com.hitsz.pae.pojo.*;
+import com.hitsz.pae.pojo.exam.ExamRecord;
+import com.hitsz.pae.pojo.exam.GetExamInfo;
+import com.hitsz.pae.pojo.exam.InfoExam;
 
 public interface ExamService {
-    ExamRecord[] getExamSurface(Integer id);
+    ExamRecord[] getExamSurface(Integer id, Boolean flag);
     Question[] getExamQuestions(GetExamInfo examInfo);
-    void saveExamRecord(Info_exam infoExam);
+    void saveExamRecord(InfoExam infoExam);
 }

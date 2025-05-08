@@ -5,11 +5,11 @@ package com.hitsz.pae.sevice;/*
  *@version:1.0
  */
 
-import com.hitsz.pae.pojo.GetStuInfo;
-import com.hitsz.pae.pojo.StuInfo;
+import com.hitsz.pae.pojo.admin.AdminiGetStudInfo;
+import com.hitsz.pae.pojo.stu.StuInfo;
 
 import java.util.List;
 
 public interface AdministratorService {
-    List<StuInfo> queryStudent(GetStuInfo getStuInfo);
+    List<StuInfo> queryStudent(AdminiGetStudInfo adminiGetStudInfo);
 }

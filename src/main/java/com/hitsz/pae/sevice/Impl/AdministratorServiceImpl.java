@@ -6,10 +6,11 @@ package com.hitsz.pae.sevice.Impl;/*
  */
 
 import com.hitsz.pae.Constant;
+import com.hitsz.pae.mapper.LilunRecordMapper;
 import com.hitsz.pae.mapper.RecordMapper;
 import com.hitsz.pae.mapper.StudentMapper;
-import com.hitsz.pae.pojo.GetStuInfo;
-import com.hitsz.pae.pojo.StuInfo;
+import com.hitsz.pae.pojo.admin.AdminiGetStudInfo;
+import com.hitsz.pae.pojo.stu.StuInfo;
 import com.hitsz.pae.sevice.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,32 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Autowired
     RecordMapper recordMapper;
 
+    @Autowired
+    LilunRecordMapper lilunRecordMapper;
     @Override
-    public List<StuInfo> queryStudent(GetStuInfo getStuInfo) {
-        List<StuInfo> stuInfos = studentMapper.selectStuInfo(getStuInfo);
-        for(StuInfo stu : stuInfos){
-            List<Integer> scores = recordMapper.selectExamScore(stu.getId(),stu.getProfession());
-            stu.setScore(scores);
-            stu.setFlag(Excellent(scores,stu.getProfession()));
+    public List<StuInfo> queryStudent(AdminiGetStudInfo adminiGetStudInfo) {
+        List<StuInfo> stuInfos = studentMapper.selectStuInfo(adminiGetStudInfo);
+        if(adminiGetStudInfo.getType()){
+            for(StuInfo stu : stuInfos){
+                List<Integer> scores = recordMapper.selectExamScore(stu.getId(),stu.getProfession());
+                stu.setScore(scores);
+                stu.setFlag(Excellent(scores,stu.getProfession()));
+            }
+            if(adminiGetStudInfo.getFlag()!=null&&adminiGetStudInfo.getFlag()){
+                return stuInfos.stream().filter(stuInfo -> !stuInfo.getFlag()).toList();
+            }
+            return stuInfos;
+        }else {
+            for (StuInfo stu : stuInfos) {
+                List<Integer> scores = lilunRecordMapper.selectExamScore(stu.getId(), stu.getProfession());
+                stu.setScore(scores);
+                stu.setFlag(Excellent(scores, stu.getProfession()));
+            }
+            if (adminiGetStudInfo.getFlag()) {
+                return stuInfos.stream().filter(stuInfo -> !stuInfo.getFlag()).toList();
+            }
+            return stuInfos;
         }
-        if(getStuInfo.isFlag()){
-            return stuInfos.stream().filter(stuInfo -> !stuInfo.getFlag()).toList();
-        }
-        return stuInfos;
     }
 
     private boolean Excellent(List<Integer> scores, Integer profession){

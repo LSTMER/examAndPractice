@@ -8,9 +8,23 @@
         insert into info_exams (stu_id, status, profession, exam_score) VALUES
             (#{userId},#{status},#{profession},#{correctNum});
     </insert>
+    <insert id="insertPracticeListRecord">
+        insert into info_question_list
+        (stu_id, quesion_list_index, status, profession) VALUES
+        (
+         #{id},
+         #{questionListId},
+         true,
+         #{profession}
+        )
+    </insert>
     <select id="selectExamScore" resultType="java.lang.Integer">
         select exam_score from info_exams
         where stu_id = #{id}
         and profession = #{profession}
+    </select>
+
+    <select id="findQuestionListId" resultType="java.lang.Boolean">
+        select status from info_question_list where quesion_list_index = #{id} and profession = #{profession}
     </select>
 </mapper>

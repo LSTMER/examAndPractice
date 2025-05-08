@@ -1,5 +1,6 @@
 package com.hitsz.pae.pojo;
 
+import com.hitsz.pae.exceptions.BizException;
 import lombok.Data;
 
 /**
@@ -33,5 +34,10 @@ public class Result {
         result.code = 401;
         return result;
     }
-
+    public static Result error(BizException bizException) {
+        Result result = new Result();
+        result.msg = bizException.getErrorMessage();
+        result.code = 401;
+        return result;
+    }
 }
