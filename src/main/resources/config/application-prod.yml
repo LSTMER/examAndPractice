@@ -3,8 +3,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver # 指定数据库驱动类
     # 数据库连接信息
-#    url: jdbc:mysql://8.138.155.251:3306/examandpratice?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
-    url: jdbc:mysql://127.0.0.1:3306/examandpratice?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://8.138.155.251:3306/examandpratice?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
     username: root # 数据库用户名
     password: Y7FBpP85MYJSLC2RZi0RsewlLAR4btkYBpYTtMj8AE8ZZxW8/Pr2Xxw4ddAvZ6kQkpfdLfoUa/7BunWWP3Jljw== # 数据库密码
     type: com.alibaba.druid.pool.DruidDataSource
@@ -60,29 +59,7 @@ spring:
       max-file-size: 100MB
       max-request-size: 200MB
 
-
-# log-impl: 设置 MyBatis 的日志实现。org.apache.ibatis.logging.stdout.StdOutImpl 表示将日志输出到标准输出（控制台）。其他可选的日志实现包括：
-# org.apache.ibatis.logging.slf4j.Slf4jImpl：使用 SLF4J
-# org.apache.ibatis.logging.log4j.Log4jImpl：使用 Log4j
-# org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl：使用 Jakarta Commons Logging
-# map-underscore-to-camel-case: 设置是否自动将数据库中的下划线命名转换为驼峰命名。例如，数据库中的 user_name 字段将自动映射到 Java 对象中的 userName 属性
-mybatis:
-  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-
 # 设置日志级别为info，还可以设置为debug，warn，error，关闭日志将级别设置为off即可
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: warn
-
-# 阿里云
-aliyun:
-  oss:
-    endpoint: https://oss-cn-beijing.aliyuncs.com
-    bucketName: java-web-simon
-
-rate-limit:
-  api:
-    limit: 100
-
